@@ -16,6 +16,7 @@ export default class Accordion extends Component {
     renderSectionTitle: PropTypes.func,
     activeSections: PropTypes.arrayOf(PropTypes.number).isRequired,
     onChange: PropTypes.func.isRequired,
+    onLongPress: PropTypes.func.isRequired,
     align: PropTypes.oneOf(['top', 'center', 'bottom']),
     duration: PropTypes.number,
     easing: PropTypes.string,
@@ -39,6 +40,7 @@ export default class Accordion extends Component {
     renderSectionTitle: () => null,
     onAnimationEnd: () => null,
     sectionContainerStyle: {},
+    onLongPress: () => {},
   };
 
   _toggleSection(section) {
@@ -85,6 +87,7 @@ export default class Accordion extends Component {
       renderHeader,
       renderFooter,
       renderSectionTitle,
+      onLongPress,
     } = this.props;
 
     const renderCollapsible = (section, key) => (
@@ -108,6 +111,7 @@ export default class Accordion extends Component {
             <Touchable
               onPress={() => this._toggleSection(key)}
               underlayColor={underlayColor}
+              onLongPress={() => onLongPress(key)}
               {...touchableProps}
             >
               {renderHeader(
